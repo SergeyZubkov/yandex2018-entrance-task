@@ -1,9 +1,12 @@
-import './App.css';
+import './App.css'
+import Header from './header/Header'
+import Scedule from './scedule/Scedule'
 
 function App() {
   return (
-    <div className="App">
-      Test
+    <div className="app">
+      <Header />
+      <Scedule />
     </div>
   );
 }

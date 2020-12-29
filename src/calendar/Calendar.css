@@ -1,0 +1,42 @@
+.calendar {
+    font-weight: 500;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.calendar__btn-arrow {
+    
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: 22px;
+    color: inherit;
+    background: #e0e0e0;
+}
+
+.calendar__btn-arrow img {
+    width: 12px;
+    margin-bottom: -3px;
+}
+
+.calendar__btn-arrow--right img {
+    margin-right: -3px;
+}
+
+.calendar__btn-arrow--left img {
+    margin-left: -3px;
+}
+
+.calendar__btn-dropdown {
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: none
+}

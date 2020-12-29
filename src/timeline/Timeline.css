@@ -1,0 +1,34 @@
+.timeline {
+    position: absolute;
+    margin-left: 300px;
+    right: 0;
+    padding: 10px;
+}
+
+.timeline__mark {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%)
+}
+
+
+.timeline__mark--current-time {
+    display: inline-block;
+    margin-top: -4px;
+    padding: 4px 10px;
+    background:#1976d2;
+    color: white;
+    border-radius: 5px;
+    left: 45%;
+}
+
+.timeline__mark--current-time::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 29px;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #1976d2;
+}
