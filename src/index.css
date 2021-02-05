@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  color: black;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', "Areal",
     sans-serif;
@@ -14,4 +15,55 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.field label {
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.field input {
+  font-size: 18px;
+  padding: 8px 6px;
+  border-radius: 5px;
+  border: 2px solid #bebebe;
+
+}
+
+.field input::placeholder {
+  color: #bebebe;
+}
+
+.input-time {
+  width: 68px;
+}
+
+.avatar-icon {
+  height: 25px;
+  border-radius: 50%;
+}
+
+.custom-modal-overlay {
+
+}
+
+.custom-modal {
+  background-color: white !important;
+  text-align: center;
+  padding: 25px 50px !important;
+  width: 500px !important;
+  border-radius: 10px;
+}
+
+.custom-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

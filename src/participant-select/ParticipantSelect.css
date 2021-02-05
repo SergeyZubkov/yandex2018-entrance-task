@@ -1,0 +1,92 @@
+.participant-select {
+    position: relative;
+}
+
+.participant-select input{
+    width: 100%;
+}
+
+.participant-select__btn {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: -30px;
+}
+
+.participant-select ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    transform: translateY(100%);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-left: 2px solid #bebebe;
+    border-right: 2px solid #bebebe;
+
+}
+
+.participant-select ul li {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.participant-select ul li:last-child {
+    border-bottom: 2px solid #bebebe;
+}
+
+.participant-list {
+    padding: 0;
+    margin-top: 20px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.participant-list li {
+    margin: 0 10px 10px 0;
+    overflow: hidden;
+}
+
+.participant-chip {
+    height: 25px;
+    background: #efefef;
+    display: flex;
+    border-radius: 20px;
+}
+
+..participant-chip:focus {
+    border: 2px solid black;
+}
+
+.participant-chip img.avatar-icon {
+    padding-right: 5px;
+}
+
+.participant-chip__name {
+    color: #383838;
+    padding-right: 10px;
+    line-height: 21px;
+}
+
+.participant-chip button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    color: #b3b3b3;
+    height: auto;
+    width: auto;
+    line-height: 20px;
+    outline: none;
+    margin-right: 5px;
+    align-self: baseline;
+    cursor: pointer;
+}
+
+.participant-chip button img {
+    width: 25px;
+    height: 25px;
+}

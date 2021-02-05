@@ -1,0 +1,76 @@
+.scedule__header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;   
+    align-items: center;
+    background: white;
+    width: 1880px;
+}
+
+.scedule__header .calendar {
+    flex: 0 0 300px;
+    height: 61px;
+} 
+
+.timeline {
+    position: relative;
+    flex: 0 0 1580px;
+    padding: 10px;
+}
+
+.timeline__mark {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%)
+}
+
+.timeline__mark.last-child {
+    transform: translateX(-100%);
+}
+
+
+.timeline__mark--current-time {
+    display: inline-block;
+    margin-top: -4px;
+    padding: 4px 10px;
+    background:#1976d2;
+    color: white;
+    border-radius: 5px;
+    left: 45%;
+}
+
+
+.scedule__timestamps {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: 300px;
+    position: absolute;
+    z-index: 1;
+}
+
+.scedule__timestamp {
+    width: 1px;
+    background: #e0e0e0;
+    top: 41px;
+    bottom: 0;
+    position: absolute;
+}
+
+.scedule__timestamp.last-child {
+    margin-left: -1px;
+}
+
+.scedule__timestamp--current-time {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #1976d2;
+    z-index: -1;
+}

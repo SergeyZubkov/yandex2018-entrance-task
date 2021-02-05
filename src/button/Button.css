@@ -7,8 +7,44 @@
     outline: none;
     color: white;
     background: #1976d2;
+    cursor: pointer;
 }
 
 .btn:active {
     background: #004ba0
+}
+
+.btn--circle {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #aaaaaa;
+    font-size: 25px;
+    position: relative;
+}
+
+.btn--circle i {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50%;
+    transform: translate(-62%, -50%);
+    width: 12px;
+    height: 18px;
+}
+
+.btn--circle:active {
+    background: #cacaca;
+}
+
+.btn--gray {
+    background: #e0e0e0;
+    color: #313131;
+}
+
+.btn--gray:active {
+    background: #cacaca;
 }

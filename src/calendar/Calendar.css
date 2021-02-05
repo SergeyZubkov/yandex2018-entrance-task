@@ -1,3 +1,11 @@
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.react-datepicker__week .react-datepicker__day--selected {
+    background-color: #1976d2 ;
+}
+
 .calendar {
     font-weight: 500;
     font-size: 22px;
@@ -17,6 +25,11 @@
     font-size: 22px;
     color: inherit;
     background: #e0e0e0;
+    cursor: pointer;
+}
+
+.calendar__btn-arrow:active {
+    background: #d6d6d6;
 }
 
 .calendar__btn-arrow img {

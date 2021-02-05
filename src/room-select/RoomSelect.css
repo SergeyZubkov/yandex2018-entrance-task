@@ -1,0 +1,47 @@
+.room-select {
+    position: relative;
+}
+
+.room-select input{
+    width: 100%;
+}
+
+.room-select__btn {
+    width: 100%;
+    background: none;
+    position: relative;
+    font-size: 18px;
+    padding: 8px 6px;
+    border-radius: 5px;
+    border: 2px solid #bebebe;
+    text-align: left;
+}
+
+.room-select  .icon-arrow {
+    font-size: 13px;
+    margin-left: -23px;
+}
+
+.room-select ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    transform: translateY(100%);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-left: 2px solid #bebebe;
+    border-right: 2px solid #bebebe;
+
+}
+
+.room-select ul li {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.room-select ul li:last-child {
+    border-bottom: 2px solid #bebebe;
+}

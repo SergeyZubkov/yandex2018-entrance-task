@@ -19,7 +19,6 @@ function ClockLine() {
             <div className="timeline__mark">21</div>
             <div className="timeline__mark">22</div>
             <div className="timeline__mark">23</div>
-            <div className="timeline__mark timeline__mark--current-time">22:12</div>
         </div>
     )
 }

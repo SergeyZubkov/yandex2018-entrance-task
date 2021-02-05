@@ -1,0 +1,15 @@
+.input-date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.input-date .field:first-child {
+    margin-right: 28px;
+    flex-grow: 1;
+}
+
+.input-date i {
+    font-weight: 700;
+    margin: 40px 6px  0;
+}

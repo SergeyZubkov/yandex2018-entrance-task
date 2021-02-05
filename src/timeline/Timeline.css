@@ -1,7 +1,6 @@
 .timeline {
-    position: absolute;
-    margin-left: 300px;
-    right: 0;
+    position: relative;
+    flex: 0 0 1580px;
     padding: 10px;
 }
 
@@ -9,6 +8,10 @@
     position: absolute;
     top: 0;
     transform: translateX(-50%)
+}
+
+.timeline__mark.last-child {
+    transform: translateX(-100%);
 }
 
 
@@ -20,15 +23,4 @@
     color: white;
     border-radius: 5px;
     left: 45%;
-}
-
-.timeline__mark--current-time::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 29px;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    background: #1976d2;
 }
