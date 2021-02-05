@@ -7,7 +7,8 @@ import ParticipantSelect from '../participant-select/ParticipantSelect'
 import RoomSelect from '../room-select/RoomSelect'
 import {FETCH_EVENTS_BY_DATE} from '../scedule/Scedule'
 
-import {Modal} from 'react-responsive-modal';
+import {Modal} from 'react-responsive-modal'
+import {useForm, Controller} from 'react-hook-form'
 
 import {
     formatDate,
@@ -93,6 +94,10 @@ function FormEvent() {
     // показ сообщения об успешном создании встречи
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
+
+    //react-hook-form
+    const {control, handleSubmit, watch} = useForm()
+    const watchParticipantList = watch('participantList')
 
     if (loading||createEventLoading) return "loading..."
 
@@ -199,9 +204,16 @@ function FormEvent() {
         const {room} = event
         return `${formatRoom(room)} ${"\u00B7"} ${room.floor} этаж`
     }
+
+    console.log('watch', watchParticipantList)
     
     return (
-        <div className="form-event">
+        <form 
+            className="form-event"
+            onSubmit={handleSubmit(
+                (data) => console.log(data)
+            )}
+        >
             <div className="form-event__inner">
                 <div className="form-event__header">
                     <h2 className="form-event__header-title">Новая встреча</h2>
@@ -222,13 +234,28 @@ function FormEvent() {
                             onChange={handleChangeTitle}
                         />
                     </div>
-                    <ParticipantSelect 
+                    <Controller
+                        name='participantList'
+                        control={control}
+                        defaultValue={[]}
+                        render={
+                            ({value, onChange}) => (
+                                <ParticipantSelect
+                                    candidates={users}
+                                    selectedPeople={value}
+                                    limit={room ? room.capacity : 0}
+                                    onSelectedItemsChange={({selectedItems}) => onChange(selectedItems)}
+                                />
+                            )
+                        }
+                    />
+                    {/* <ParticipantSelect 
                         candidates={users} 
                         selectedPeople={participantList}
                         limit={room ? room.capacity : 0}
                         onSelect={handleSelectParticipant} 
                         onRemoveSelectedItem={handleRemoveSelectedParticipants}
-                    />
+                    /> */}
                 </div>
                 <div className="form-event__col-right">
                     <InputDate inititalStartDate={startEndDate.startDate} onChange={handleStartEndDateChange}/>
@@ -265,7 +292,7 @@ function FormEvent() {
                     <Button onClick={handleCloseModal}>ОК</Button>
                 </div>
             </Modal>
-        </div>
+        </form>
     )
 }
 

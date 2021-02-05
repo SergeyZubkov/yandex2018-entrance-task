@@ -7,10 +7,9 @@ import { useCombobox, useMultipleSelection } from 'downshift'
 
 function ParticipantSelect({
     candidates = [], 
-    limit = candidates.lenght, 
+    limit = candidates.length, 
     selectedPeople = [],
-    onSelect,
-    onRemoveSelectedItem
+    onSelectedItemsChange
   }) {
     const [inputValue, setInputValue] = useState('')
 
@@ -22,17 +21,18 @@ function ParticipantSelect({
         selectedItems
     } = useMultipleSelection({
       selectedItems: selectedPeople,
-      onSelectedItemsChange: (o) => {
-        console.log(o)
-        switch (o.type) {
-          case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
-          case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
-              onRemoveSelectedItem(inputValue)
-              break
-          default:
-              break
-        }
-      }
+      onSelectedItemsChange
+      // onSelectedItemsChange: (o) => {
+      //   console.log(o)
+      //   switch (o.type) {
+      //     case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
+      //     case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
+      //         onRemoveSelectedItem(inputValue)
+      //         break
+      //     default:
+      //         break
+      //   }
+      // }
     })
 
     const getFilteredItems = () => {
@@ -64,12 +64,15 @@ function ParticipantSelect({
                 case useCombobox.stateChangeTypes.InputKeyDownEnter:
                 case useCombobox.stateChangeTypes.ItemClick:
                 case useCombobox.stateChangeTypes.InputBlur:
+                    console.log()
+                    console.log('selectedItem', selectedItem)
+                    console.log('selectedItems', selectedItems)
                     if (
                         selectedItem
                         && selectedItems.length < limit
                       ) {
                         setInputValue('')
-                        onSelect(selectedItem)
+                        addSelectedItem(selectedItem)
                     }
                     break
                 default:
@@ -109,7 +112,7 @@ function ParticipantSelect({
                     : {}
                 }
                 key={`${login}${index}`}
-                {...getItemProps({ login, index })}
+                {...getItemProps({index })}
               >
                 {login}
               </li>
@@ -134,7 +137,8 @@ function ParticipantSelect({
                       </div>
                       <button 
                         onClick={e => {
-                          onRemoveSelectedItem(selectedItem.id)
+                          e.stopPropagation()
+                          removeSelectedItem(selectedItem)
                         }}
                       >
                           <img src="icons/cross.svg" alt="cross"/>
