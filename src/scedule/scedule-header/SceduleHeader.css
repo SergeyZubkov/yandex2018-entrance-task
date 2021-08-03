@@ -1,76 +1,82 @@
 .scedule__header {
-    position: relative;
     z-index: 2;
     display: flex;
     border-bottom: 1px solid #e0e0e0;   
     align-items: center;
     background: white;
-    width: 1880px;
+    height: var(--scedule-header-height);
+    position: sticky;
+    top: 78px;
 }
 
-.scedule__header .calendar {
+.scedule__header .react-datepicker-wrapper {
     flex: 0 0 300px;
     height: 61px;
-} 
+}
 
 .timeline {
     position: relative;
-    flex: 0 0 1580px;
-    padding: 10px;
+    flex: 1 0 0;
+    display: flex;
+    height: 61px;
 }
 
-.timeline__mark {
+.timeline-label {
+    flex: 1 0 0;
+    text-align: center;
+    position: relative;
+    line-height: var(--timeline-label-height);
+}
+
+.timeline-label:after {
+    content: '';
+    width: 0;
+    border-left: 1px solid #e0e0e0;
+    height: calc(
+        100vh -
+        var(--header-height) -
+        var(--scedule-header-height) -
+        var(--browser-scroll-height)
+    );
     position: absolute;
-    top: 0;
-    transform: translateX(-50%)
+    left: 50%;
+    top: 100%;
+    background: #e0e0e0;
+    pointer-events: none;
 }
-
-.timeline__mark.last-child {
-    transform: translateX(-100%);
-}
-
 
 .timeline__mark--current-time {
-    display: inline-block;
-    margin-top: -4px;
+    position: absolute;
+    display: inline-block;  
     padding: 4px 10px;
     background:#1976d2;
     color: white;
     border-radius: 5px;
-    left: 45%;
-}
-
-
-.scedule__timestamps {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-left: 300px;
-    position: absolute;
-    z-index: 1;
-}
-
-.scedule__timestamp {
-    width: 1px;
-    background: #e0e0e0;
-    top: 41px;
-    bottom: 0;
-    position: absolute;
-}
-
-.scedule__timestamp.last-child {
-    margin-left: -1px;
-}
-
-.scedule__timestamp--current-time {
-    content: "";
-    display: block;
-    position: absolute;
     top: 50%;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    background: #1976d2;
-    z-index: -1;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
+
+.timeline__mark--current-time:after {
+    content: '';
+    width: 1px;
+    height: calc(
+        100vh -
+        var(--header-height) -
+        var(--scedule-header-height) -
+        var(--browser-scroll-height) +
+        calc(
+            (
+                var(--timeline-label-height) -
+                var(--timeline-mark-height)
+            ) / 2
+        )
+    );
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    background: #1976d2;
+}
+
+

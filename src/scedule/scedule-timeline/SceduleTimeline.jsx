@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./SceduleRoom.css";
-
+import "./SceduleTimeline.css";
+import SceduleEvent from "./scedule-event/SceduleEvent";
 import ButtonToCreateEvent from "./ButtonToCreateEvent";
 
 import ReactCursorPosition from "react-cursor-position";
@@ -11,10 +11,12 @@ import {
   isPassedTime,
 } from "../utils";
 
-function SceduleRoom({ id, title, capacity, events, floor }) {
-  const [buttonProps, setButtonProps] = useState({
+function SceduleTimeline({ forRoom = null, events = [] }) {
+  // кнопка "создать встречу", которая будет появляться
+  // при наведении на свободное время
+  const [btnProps, setBtnProps] = useState({
     show: false,
-    left: null,
+    left: 0,
   });
 
   const getPercentOffsetRelativeToParent = (cursorX, parent) => {
@@ -22,12 +24,12 @@ function SceduleRoom({ id, title, capacity, events, floor }) {
   };
 
   const handleCursorPositionChange = (props) => {
-    // / ширина контейнра с событиями
+    // ширина контейнера с событиями
     // соотносится с временной шкалой
     const widthEl = props?.elementDimensions?.width;
 
     if (props.isPositionOutside || !widthEl) {
-      setButtonProps({
+      setBtnProps({
         show: false,
       });
 
@@ -46,36 +48,38 @@ function SceduleRoom({ id, title, capacity, events, floor }) {
     const pointOnPassedTime = isPassedTime(percentOffsetToTime(percentOffset));
 
     if (!eventExistOnThisPoint && !pointOnPassedTime) {
-      setButtonProps({
+      setBtnProps({
         show: true,
         left: percentOffset,
       });
     } else {
-      setButtonProps({
+      setBtnProps({
         show: false,
       });
     }
   };
+
   return (
-    <div className="room">
-      <div className="room__info">
-        <div className="room__info-title">{title}</div>
-        <div className="room__info-capacity">{`до ${capacity} человек`}</div>
-      </div>
-      <ReactCursorPosition
-        className="room__events"
-        onPositionChanged={handleCursorPositionChange}
-        shouldDecorateChildren={false}
-      >
-        {buttonProps.show && (
-          <ButtonToCreateEvent
-            left={buttonProps.left}
-            room={{ id, title, capacity, events, floor }}
-          />
-        )}
-      </ReactCursorPosition>
-    </div>
+    <ReactCursorPosition
+      className="scedule__timeline"
+      onPositionChanged={handleCursorPositionChange}
+      shouldDecorateChildren={false}
+    >
+      {events.map(({ id, dateStart, dateEnd, ...otherProps }) => (
+        <SceduleEvent
+          id={id}
+          key={id}
+          dateStart={dateStart}
+          dateEnd={dateEnd}
+          {...otherProps}
+        />
+      ))}
+
+      {btnProps.show && (
+        <ButtonToCreateEvent left={btnProps.left} room={forRoom} />
+      )}
+    </ReactCursorPosition>
   );
 }
 
-export default SceduleRoom;
+export default SceduleTimeline;

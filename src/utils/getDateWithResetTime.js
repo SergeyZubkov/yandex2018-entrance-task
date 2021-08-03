@@ -1,7 +1,7 @@
-import {set} from 'date-fns'
+import { set } from "date-fns";
 
 function getDateWithResetTime(date) {
-    return set(date, {hours: 0, minutes: 0})
+  return set(date, { hours: 0, minutes: 0 });
 }
 
-export default getDateWithResetTime
+export default getDateWithResetTime;

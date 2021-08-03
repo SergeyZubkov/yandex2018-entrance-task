@@ -1,0 +1,13 @@
+.scedule__aside {
+    flex: 0 0 300px;
+    background-color: #fff;
+    overflow: hidden;
+    border-right: 1px solid #f5f5f5;
+    left: 0;
+}
+
+.scedule__aside.hidden{
+    visibility: hidden;
+    position: sticky;
+    z-index: 4;
+}

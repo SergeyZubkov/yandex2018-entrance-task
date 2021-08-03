@@ -25,19 +25,14 @@
     position: relative;
 }
 
-.btn--circle i {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 50%;
-    transform: translate(-62%, -50%);
-    width: 12px;
-    height: 18px;
-}
-
 .btn--circle:active {
     background: #cacaca;
+}
+
+.btn__icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: baseline;
 }
 
 .btn--gray {
@@ -47,4 +42,9 @@
 
 .btn--gray:active {
     background: #cacaca;
+}
+
+.btn[disabled] {
+    opacity: .3;
+    cursor: not-allowed;
 }

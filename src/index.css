@@ -1,5 +1,15 @@
+:root {
+  --header-height: 78px;
+  --scedule-header-height: 62px;
+  --browser-scroll-height: 20px;
+  --timeline-label-height: 61px;
+  --timeline-mark-height: 29px;
+}
+
 body {
   margin: 0;
+  padding: 0;
+  overflow: hidden;
   color: black;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', "Areal",
@@ -41,6 +51,22 @@ code {
   color: #bebebe;
 }
 
+.field input.is-invalid, .field button.is-invalid {
+  border-color: #dc3545;
+}
+
+.field input.is-invalid:focus {
+  outline: #dc3545;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+}
+
+.field-info {
+  display: flex;
+  justify-content: space-between;
+}
 .input-time {
   width: 68px;
 }

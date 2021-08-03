@@ -1,6 +1,17 @@
-.header__top {
+.header {
+    height: var(--header-height);
+    padding: 20px 20px 0px;
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    z-index: 5;
+    background: white;
+}
+
+.header__inner {
+    border-bottom: 1px solid #e0e0e0; 
     display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    border-bottom: 1px solid #e0e0e0;   
+    justify-content: space-between; 
+    padding: 10px 10px 10px;
+    align-items: center;
 }

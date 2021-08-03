@@ -67,7 +67,7 @@
 
 .participant-chip__name {
     color: #383838;
-    padding-right: 10px;
+    margin: 0 12px 0 5px;
     line-height: 21px;
 }
 
@@ -79,14 +79,14 @@
     color: #b3b3b3;
     height: auto;
     width: auto;
-    line-height: 20px;
     outline: none;
     margin-right: 5px;
-    align-self: baseline;
     cursor: pointer;
 }
 
-.participant-chip button img {
-    width: 25px;
-    height: 25px;
+.participant-chip__cross-icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    fill: #aaaaaa
 }

@@ -1,123 +1,100 @@
-import {useEffect, useState, useRef, Fragment} from 'react'
-import './Scedule.css'
+import "./Scedule.css";
 
-import SceduleHeader from './scedule-header/SceduleHeader'
-import SceduleRoom from './scedule-room/SceduleRoom'
+import SceduleHeader from "./scedule-header/SceduleHeader";
+import SceduleLabel from "./scedule-aside/scedule-label/SceduleLabel";
+import SceduleTimeline from "./scedule-timeline/SceduleTimeline";
+import SceduleAside from "./scedule-aside/SceduleAside";
 
-import {parseISO} from 'date-fns'
-import {uniq} from 'lodash'
-import {useQuery, gql} from '@apollo/client' 
+import { uniq } from "lodash";
+import { useQuery, useReactiveVar } from "@apollo/client";
 
-export const FETCH_EVENTS_BY_DATE = gql`
-    query eventsOnDate($date: Date!) {
-        eventsOnDate(date: $date) {
-            id,
-            title,
-            dateStart,
-            dateEnd,
-            users {
-                id,
-                login,
-                homeFloor,
-                avatarUrl
-            },
-            room {
-                id,
-                title
-            }
-        }
-    }
-`
+import { FETCH_EVENTS_BY_DATE, FETCH_ALL_ROOMS } from "../queries.js";
 
-export const FETCH_ALL_ROOMS = gql`
-    query {
-        rooms {
-            id,
-            title,
-            capacity,
-            floor
-        }
-    }
-`
+import { endOfDay } from "date-fns";
 
+import { pickedDateStartVar } from "..";
 
 function Scedule() {
-    const [date, setDate] = useState(new Date())
+  const date = endOfDay(useReactiveVar(pickedDateStartVar));
+  console.log("pickedDateStartVar", date);
+  const { data: dataEvents, loading, error } = useQuery(FETCH_EVENTS_BY_DATE, {
+    variables: { date },
+  });
 
-    const {data: dataEvents, loading, error} = useQuery(FETCH_EVENTS_BY_DATE, {
-        variables: {date}
-    })
-    const {data: dataRooms, loading: loadingRooms, error: errorRooms} = useQuery(FETCH_ALL_ROOMS)
-    // устанавливает часовые отметки
-    // узнаем их высоту
-    const [timestampsHeight, setTimestampsHeight] = useState(null)
-    const sceduleItemsEl = useRef()
+  const {
+    data: dataRooms,
+    loading: loadingRooms,
+    error: errorRooms,
+  } = useQuery(FETCH_ALL_ROOMS);
 
-    useEffect(
-        () => {
-            if (sceduleItemsEl.current) {
-                setTimestampsHeight(sceduleItemsEl.current.offsetHeight)
-            }
-        }
-    ,[dataEvents, dataRooms])
+  if (loading || loadingRooms) return "Loading...";
 
-    if (loading||loadingRooms) return 'Loading...'
+  if (error || errorRooms) {
+    console.error(error);
+    return "Error";
+  }
 
-    if (error||errorRooms) {
-        console.error(error)
-        return 'Error'
-    }
-    console.log('dataEvents', dataEvents)
-    const {eventsOnDate: events} = dataEvents
-    const {rooms} = dataRooms
+  const { eventsOnDate: events } = dataEvents;
+  const { rooms } = dataRooms;
 
-    const handleRoomMouseOver = e => {
-        console.log(e)
-        console.log('hover on room', e.pageX)
-    }
+  const getStageNmbs = () => {
+    const floorNmbs = rooms.map((r) => r.floor);
 
-    const handleChangeDate = date => setDate(date)
+    return uniq(floorNmbs);
+  };
+  const stageNmbs = getStageNmbs().sort((a, b) => a - b);
 
-    const getStageNmbs = () => {
-        const floorNmbs = rooms.map(r => r.floor)
+  const getRoomsOnFloor = (floor) =>
+    rooms.filter((room) => room.floor === floor);
 
-        return uniq(floorNmbs)
-    }
-    const stageNmbs = getStageNmbs()
+  const renderColumnsContent = () => {
+    const roomNames = [];
+    const timelines = [];
 
-    return (
-        <div className="scedule">
-            <SceduleHeader 
-                timestampsHeight={timestampsHeight}
-                onChangeDate={handleChangeDate}
-                calendarInitialDate={date}
-            />
-            <div className="scedule__items" ref={sceduleItemsEl}>
-                {stageNmbs.sort((a, b) => a - b).map(
-                    stageNmb => {
-                        const floorRooms = rooms.filter(room => room.floor === stageNmb)
-                        return (
-                            <Fragment key={stageNmb}>
-                            <div className="scedule__stage">{stageNmb} этаж</div>
-                            {floorRooms.map(({id, title, capacity}) => {
-                                const roomEvents = events.filter(event => event.room.id === id)
-                                
-                                return <SceduleRoom 
-                                    key={id}
-                                    id={id}
-                                    title={title}
-                                    capacity={capacity}
-                                    events={roomEvents}
-                                    onMouseOver={handleRoomMouseOver}
-                                />
-                            })}
-                            </Fragment>
-                        )
-                    }
-                )}
-            </div>
-        </div>
-    )
+    stageNmbs.forEach((stageNmb) => {
+      // const sceduleGroupLabel =
+      //     <SceduleGroupLabel {...stageNmb} />
+
+      const roomsOnFloor = getRoomsOnFloor(stageNmb);
+
+      const roomNamesChunk = roomsOnFloor.map((room) => (
+        <SceduleLabel
+          key={room.id}
+          title={room.title}
+          subtitle={room.capacity}
+        />
+      ));
+
+      const timelinesChunk = roomsOnFloor.map((room) => {
+        const roomEvents = events.filter((e) => e.room.id === room.id);
+
+        return (
+          <SceduleTimeline key={room.id} forRoom={room} events={roomEvents} />
+        );
+      });
+
+      roomNames.push(
+        // sceduleGroupLabel,
+        ...roomNamesChunk
+      );
+
+      timelines.push(...timelinesChunk);
+    });
+
+    return [roomNames, timelines];
+  };
+
+  const [roomNames, timelines] = renderColumnsContent();
+
+  return (
+    <div className="scedule">
+      <SceduleHeader />
+      <div className="scedule__content">
+        <SceduleAside>{roomNames}</SceduleAside>
+        <div className="scedule__timelines">{timelines}</div>
+      </div>
+    </div>
+  );
 }
 
-export default Scedule
+export default Scedule;

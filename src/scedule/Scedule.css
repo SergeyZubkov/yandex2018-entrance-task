@@ -1,16 +1,31 @@
 .scedule {
     position: relative;
+    min-width: 1140px;
+    padding: 0 20px 20px;
+    height: calc(
+        100vh -
+        var(--header-height) -
+        var(--browser-scroll-height)
+    );
+}
+
+.scedule__content {
     background: #f5f5f5;
-    overflow: auto;
-    left: 0;
-    right: 0;
+    display: flex;
+    height: calc(
+        100vh -
+        var(--header-height) -
+        var(--scedule-header-height) -
+        var(--browser-scroll-height)
+    );
 }
 
-.scedule__items {
-    width: 1880px;
+.scedule__timelines {
+    flex: 1 0 800px;
+    overflow: hidden;
 }
 
-.scedule__stage {
+/* .scedule__stage {
     width: 300px;
     background: white;
     padding: 20px 15px 10px;
@@ -51,4 +66,4 @@
     position: relative;
     overflow: hidden;
     margin-top: 17px;
-}
+} */

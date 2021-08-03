@@ -1,0 +1,23 @@
+.scedule__label {
+    margin: 20px 15px 10px
+}
+
+.scedule__label-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.scedule__label-subtitle {
+    font-size: 17px;
+}
+
+.scedule__aside.hidden .scedule__label-title {
+    padding: 0 10px;
+}
+
+.scedule__aside.hidden .scedule__label-title {
+    visibility: visible;
+    display: inline-block;
+    background: white;
+    border-radius: 5px;
+}
